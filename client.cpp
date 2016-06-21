@@ -10,7 +10,6 @@ int main(int argc, const char * * argv)
 	struct sockaddr_in address;
 	address.sin_family = AF_INET;
 	auto server = gethostbyname("localhost");
-	//address.sin_addr.s_addr = reinterpret_cast<unsigned>(server->h_addr);
 	memcpy(reinterpret_cast<char *>(&address.sin_addr.s_addr), server->h_addr, server->h_length);
 	address.sin_port = htons(8080);
 	connect(client, reinterpret_cast<sockaddr *>(&address), sizeof address);
