@@ -1,16 +1,14 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
-#include <netdb.h>
-#include <cstring>
+#include <arpa/inet.h>
 
 int main(int argc, const char * * argv)
 {
 	auto client = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 	struct sockaddr_in address;
 	address.sin_family = AF_INET;
-	auto server = gethostbyname("localhost");
-	memcpy(reinterpret_cast<char *>(&address.sin_addr.s_addr), server->h_addr, server->h_length);
+	address.sin_addr.s_addr = inet_addr("127.0.0.1");
 	address.sin_port = htons(8080);
 	connect(client, reinterpret_cast<sockaddr *>(&address), sizeof address);
 	auto first = 42;
